@@ -51,16 +51,16 @@ appender:
     layout:
       type: NewRelicLayout
     name: STDOUT
-pickup:
-  multicd:
-    primary: ${MULTICD_PRIMARY:100}
-    all: ${MULTICD:100,200}
 shipping:
   microservices:
     configuration:
       business_unit_id: ${SETTINGS_BUSINESS_UNIT_ID:3}
       country_id: ${SETTINGS_COUNTRY_ID:7}
       shipping_method_id: ${SETTINGS_SHIPPING_METHOD_ID:10}
+pickup:
+  multicd:
+    primary: ${MULTICD_PRIMARY:100}
+    all: ${MULTICD:100,200}
   backup:
     clic:
       c:
