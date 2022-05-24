@@ -1,18 +1,8 @@
 spring:
-  main:
-    allow-circular-references: true
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-  cache:
-    type: redis
-    cache-names: cache1
-  redis:
-    host: ${AWS_REDIS_URL:localhost}
-    port: ${AWS_REDIS_PORT:6379}
-    id: ${AWS_REDIS_ID:pickup}
-    ttl_cache1: ${AWS_REDIS_TTL_CACHE1:30}
   jpa:
     properties:
       hibernate:
@@ -23,7 +13,6 @@ spring:
           fetch_size: 50000
   datasource:
     hikari:
-      connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${DATABASE_SCHEMA}
       poolName: pool-PickupHikaricp
       leak-detection-threshold: 11000
       connectionTestQuery: SELECT 1 FROM DUAL
@@ -32,11 +21,7 @@ spring:
       connectionTimeout: 10000
       minimumIdle: 3
       maximumPoolSize: ${MAX_POOL_SIZE}
-    password: ${DATABASE_PASSWD}
-    url: ${DATABASE_URL}
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: oracle.jdbc.OracleDriver
-    username: ${DATABASE_USER}
+
 management:
   endpoints:
     web:
@@ -45,12 +30,7 @@ management:
         exclude: ''
   security:
     enabled: false
-appender:
-  console:
-    type: Console
-    layout:
-      type: NewRelicLayout
-    name: STDOUT
+
 shipping:
   microservices:
     configuration:
@@ -84,28 +64,15 @@ info:
     version: V1
     name: Pickup Shipping Method
     description: Aplicacion para calculo de fechas de retiro en tienda
+
+
 logging:
   level:
-    com:
-      zaxxer:
-        hikari:
-          HikariConfig: INFO
-          nodeValue: INFO
-    s7:
-      Application: WARN
     cl:
       cencosud:
         pickupshippingmethod: INFO
-    root: INFO
-    org:
-      springframework:
-        web: WARN
-  pattern:
-    file: |
-      {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}", %m}
-    console: |
-      {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}", %m}
   file: /var/logs/pickupshippingmethod.log
+
 springfox:
   documentation:
     swagger:

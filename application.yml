@@ -1,3 +1,23 @@
+spring:
+  main:
+    allow-circular-references: true
+  cache:
+    type: redis
+    cache-names: cache1
+  redis:
+    host: ${AWS_REDIS_URL:localhost}
+    port: ${AWS_REDIS_PORT:6379}
+    id: ${AWS_REDIS_ID:pickup}
+    ttl_cache1: ${AWS_REDIS_TTL_CACHE1:30}
+  datasource:
+    hikari:
+      connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${DATABASE_SCHEMA:CA14}
+    password: ${DATABASE_PASSWD}
+    url: ${DATABASE_URL:jdbc:oracle:thin:@g500603svfxd.cencosud.corp:1521:mfeomclt}
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${DATABASE_USER:APP_CALC}
+
 shipping:
   microservices:
     configuration:
@@ -5,3 +25,29 @@ shipping:
       path: ${SETTINGS_PATH:'/configurations/api/v1/'}
       parameter: ${SETTINGS_METHOD:'parameter-configuration/listAll'}
       apikey: ${SETTINGS_APIKEY:''}
+
+appender:
+  console:
+    type: Console
+    layout:
+      type: NewRelicLayout
+    name: STDOUT
+
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari:
+          HikariConfig: INFO
+          nodeValue: INFO
+    s7:
+      Application: WARN
+    root: INFO
+    org:
+      springframework:
+        web: WARN
+  pattern:
+    file: |
+      {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}", %m}
+    console: |
+      {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}", %m}
