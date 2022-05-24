@@ -13,7 +13,7 @@ spring:
     hikari:
       connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${DATABASE_SCHEMA:CA14}
     password: ${DATABASE_PASSWD}
-    url: ${DATABASE_URL:jdbc:oracle:thin:@g500603svfxd.cencosud.corp:1521:mfeomclt}
+    url: ${DATABASE_URL:jdbc:oracle:thin:@g500603sv0zt.cencosud.corp:1521:meomclp}
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: oracle.jdbc.OracleDriver
     username: ${DATABASE_USER:APP_CALC}
@@ -21,7 +21,7 @@ spring:
 shipping:
   microservices:
     configuration:
-      url: ${SETTINGS_URL:'https://ccom-capacities-micro-services-configurations.ecomm-stg.cencosud.com'}
+      url: ${SETTINGS_URL:'https://ccom-capacities-micro-services-configurations.ecomm.cencosud.com'}
       path: ${SETTINGS_PATH:'/configurations/api/v1/'}
       parameter: ${SETTINGS_METHOD:'parameter-configuration/listAll'}
       apikey: ${SETTINGS_APIKEY:''}
