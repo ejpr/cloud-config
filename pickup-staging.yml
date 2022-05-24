@@ -54,7 +54,7 @@ appender:
 pickup:
   multicd:
     primary: ${MULTICD_PRIMARY:100}
-    nodeValue: ${MULTICD:'100,200'}
+    nodeValue: ${MULTICD:100,200}
   microservices:
     configuration:
       apikey: ${SETTINGS_APIKEY:''}
