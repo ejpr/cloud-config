@@ -1,0 +1,9 @@
+spring:
+  cache:
+    type: redis
+    cache-names: cache1
+  redis:
+    host: ${AWS_REDIS_URL:localhost}
+    port: ${AWS_REDIS_PORT:6379}
+    id: ${AWS_REDIS_ID:pickup}
+    ttl_cache1: ${AWS_REDIS_TTL_CACHE1:30}
