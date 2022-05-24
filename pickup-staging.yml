@@ -1,0 +1,126 @@
+spring:
+  main:
+    allow-circular-references: true
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  cache:
+    type: redis
+    cache-names: cache1
+  redis:
+    host: ${AWS_REDIS_URL:localhost}
+    port: ${AWS_REDIS_PORT:6379}
+    id: ${AWS_REDIS_ID:pickup}
+    ttl_cache1: ${AWS_REDIS_TTL_CACHE1:30}
+  jpa:
+    properties:
+      hibernate:
+        proc:
+          param_null_passing: true
+        dialect: org.hibernate.dialect.Oracle10gDialect
+        jdbc:
+          fetch_size: 50000
+  datasource:
+    hikari:
+      connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${DATABASE_SCHEMA}
+      poolName: pool-PickupHikaricp
+      leak-detection-threshold: 11000
+      connectionTestQuery: SELECT 1 FROM DUAL
+      idleTimeout: 60000
+      maxLifetime: 600000
+      connectionTimeout: 10000
+      minimumIdle: 3
+      maximumPoolSize: ${MAX_POOL_SIZE}
+    password: ${DATABASE_PASSWD}
+    url: ${DATABASE_URL}
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${DATABASE_USER}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+        exclude: ''
+  security:
+    enabled: false
+appender:
+  console:
+    type: Console
+    layout:
+      type: NewRelicLayout
+    name: STDOUT
+pickup:
+  multicd:
+    primary: ${MULTICD_PRIMARY:100}
+    nodeValue: ${MULTICD:'100,200'}
+  microservices:
+    configuration:
+      apikey: ${SETTINGS_APIKEY}
+      url: ${SETTINGS_URL:'https://ccom-capacities-micro-services-configurations.ecomm-stg.cencosud.com'}
+      path: ${SETTINGS_PATH:'/configurations/api/v1/'}
+      parameter: ${SETTINGS_METHOD:'parameter-configuration/listAll'}
+      business_unit_id: ${SETTINGS_BUSINESS_UNIT_ID:3}
+      country_id: ${SETTINGS_COUNTRY_ID:7}
+      shipping_method_id: ${SETTINGS_SHIPPING_METHOD_ID:10}
+  backup:
+    clic:
+      c:
+        range: ${PICKUP_CLIC_BACKUP_C_RANGE:90}
+    bopis:
+      c:
+        range: ${PICKUP_BOPIS_BACKUP_C_RANGE:40}
+  bopis:
+    c:
+      range: ${PICKUP_BOPIS_C_RANGE:20}
+  store:
+    bopis:
+      pe: P264
+  source: ${PICKUP_SOURCE:Paris.cl}
+  activate_cut_off: ${ACTIVATE_CUT_OFF}
+  clic:
+    c:
+      range: ${PICKUP_CLIC_C_RANGE:30}
+info:
+  app:
+    version: V1
+    name: Pickup Shipping Method
+    description: Aplicacion para calculo de fechas de retiro en tienda
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari:
+          HikariConfig: INFO
+          nodeValue: INFO
+    s7:
+      Application: WARN
+    cl:
+      cencosud:
+        pickupshippingmethod: INFO
+    root: INFO
+    org:
+      springframework:
+        web: WARN
+  pattern:
+    file: |
+      {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}", %m}
+    console: |
+      {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}", %m}
+  file: /var/logs/pickupshippingmethod.log
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /pickup/v1/spec
+api:
+  product:
+    url: https://product-catalog-service-txd-ecommerce.aws-test.paris.cl/
+origin:
+  service: ${ORIGIN_SERVICE}
+server:
+  error:
+    whitelabel:
+      enabled: 'true'
+  port: '8080'
