@@ -1,0 +1,7 @@
+shipping:
+  microservices:
+    configuration:
+      url: ${SETTINGS_URL:'https://ccom-capacities-micro-services-configurations.ecomm-stg.cencosud.com'}
+      path: ${SETTINGS_PATH:'/configurations/api/v1/'}
+      parameter: ${SETTINGS_METHOD:'parameter-configuration/listAll'}
+      apikey: ${SETTINGS_APIKEY:''}

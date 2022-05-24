@@ -55,12 +55,9 @@ pickup:
   multicd:
     primary: ${MULTICD_PRIMARY:100}
     all: ${MULTICD:100,200}
+shipping:
   microservices:
     configuration:
-      apikey: ${SETTINGS_APIKEY:''}
-      url: ${SETTINGS_URL:'https://ccom-capacities-micro-services-configurations.ecomm-stg.cencosud.com'}
-      path: ${SETTINGS_PATH:'/configurations/api/v1/'}
-      parameter: ${SETTINGS_METHOD:'parameter-configuration/listAll'}
       business_unit_id: ${SETTINGS_BUSINESS_UNIT_ID:3}
       country_id: ${SETTINGS_COUNTRY_ID:7}
       shipping_method_id: ${SETTINGS_SHIPPING_METHOD_ID:10}
