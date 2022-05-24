@@ -1,8 +1,0 @@
-spring:
-  redis:
-    host: localhost
-    port: ${REDIS_PORT:6379}
-    id: pickup
-    ttl_cache1: 30
-
-message: Consumer configuration server is alive!
