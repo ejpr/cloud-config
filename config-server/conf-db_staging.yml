@@ -1,7 +1,7 @@
 spring:
   datasource:
     hikari:
-    connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${DATABASE_SCHEMA:CA14}
+      connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${DATABASE_SCHEMA:CA14}
     password: ${DATABASE_PASSWD}
     url: ${DATABASE_URL:jdbc:oracle:thin:@g500603svfxd.cencosud.corp:1521:mfeomclt}
     type: com.zaxxer.hikari.HikariDataSource
